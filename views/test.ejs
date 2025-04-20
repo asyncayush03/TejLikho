@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Typing Test | TejLikho</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md p-4 text-center text-2xl font-semibold text-blue-600">
+      TejLikho - Typing Test
+    </nav>
+  
+    <!-- Timer -->
+    <div class="w-full text-center py-4 text-2xl font-semibold text-gray-800">
+      Time Left: <span id="timer">60</span>s
+    </div>
+  
+    <!-- Main Section -->
+    <div class="flex flex-1 justify-center items-start px-4 py-6 space-x-6 max-w-6xl mx-auto">
+  
+      <!-- Left: Random Text -->
+      <div class="w-1/2 p-4 bg-white rounded-lg shadow-md h-[400px] overflow-y-auto text-gray-700 text-lg leading-relaxed border">
+        <p id="randomText">
+          Loading text...
+        </p>
+      </div>
+  
+      <!-- Right: Typing Area -->
+      <div class="w-1/2 p-4 bg-white rounded-lg shadow-md flex flex-col h-[400px]">
+        <textarea id="typedText" class="w-full flex-1 p-3 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Start typing here..." disabled></textarea>
+        <button id="startBtn" class="mt-4 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+          Start Test
+        </button>
+      </div>
+  
+    </div>
+  
+    <!-- Speed Info & Restart -->
+    <div class="text-center py-4">
+      <div id="maxSpeedBox" class="inline-block px-4 py-2 bg-white border rounded shadow text-gray-700 text-lg font-medium">
+       Speed: <span id="maxSpeed">0</span> WPM
+      </div>
+      <button id="restartBtn" class="ml-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition">
+        Restart Test
+      </button>
+    </div>
+  
+    <!-- Footer -->
+    <footer class="bg-white text-center py-4 shadow-inner text-sm text-gray-500">
+      &copy; <%= new Date().getFullYear() %> TejLikho. All rights reserved.
+    </footer>
+  
+    <script>
+      const randomText = document.getElementById("randomText");
+      const typedText = document.getElementById("typedText");
+      const startBtn = document.getElementById("startBtn");
+      const restartBtn = document.getElementById("restartBtn");
+      const timerDisplay = document.getElementById("timer");
+      const maxSpeedDisplay = document.getElementById("maxSpeed");
+  
+      const sampleTexts = [
+      "George Santayana's quote remains one of the most referenced warnings in both historical and political discourse. History is more than a record of events—it’s a mirror of human behavior. By studying the rise and fall of empires, the mistakes that led to wars, and the revolutions that reshaped societies, we gain insight into the patterns that define our collective journey. This quote became especially poignant after World War II, as many observed disturbing similarities between the failures of the League of Nations and the policies of appeasement that had preceded the war. The Holocaust, the rise of fascism, and the global impact of authoritarian regimes were stark reminders of what can happen when societies forget or ignore the lessons of history. Even today, the resurgence of populism and extremism in various parts of the world echoes the early signs of past disasters. Santayana's insight isn't just philosophical—it's a practical reminder for policymakers, educators, and citizens alike. Historical awareness isn't about dwelling in the past; it's about equipping ourselves for the future. By remembering, analyzing, and teaching history, we inoculate our societies against repeating cycles of ignorance, oppression, and violence.",
+
+      "Newton’s modest yet profound acknowledgment of his predecessors is a timeless tribute to the cumulative nature of scientific discovery. Often hailed as one of the greatest scientists in history, Newton revolutionized physics with his laws of motion and universal gravitation. Yet, he openly credited ancient Greek philosophers, Arab mathematicians, and Renaissance scientists like Galileo and Kepler as foundational to his breakthroughs. This quote underscores the fact that science is not built in isolation. From Archimedes' principle to Copernicus' heliocentric theory, and eventually to Newton’s own laws, each discovery has been a stepping stone for the next. The idea of “standing on the shoulders of giants” captures how every generation inherits knowledge and then expands upon it. It’s a reminder that progress is rarely a solo endeavor. In the modern age, we continue this tradition—Einstein built upon Newton, and quantum physicists built upon Einstein. Even recent innovations like mRNA vaccines, which helped combat COVID-19, stand on decades of prior research in genetics, virology, and immunology. Newton’s quote resonates far beyond his era; it teaches us humility, collaboration, and the importance of preserving and building upon past knowledge to push humanity forward.",
+
+      "Aeschylus, a playwright and soldier from ancient Greece, recognized over two millennia ago what remains true today: war distorts reality. His quote captures a pattern seen repeatedly in history—governments and leaders manipulating facts, spreading propaganda, or silencing dissent to control narratives during times of conflict. From the Peloponnesian War to modern-day information warfare, truth often becomes a strategic tool rather than a moral compass. During World War I, governments across Europe used heavy censorship and jingoistic messaging to maintain morale, even as soldiers died in muddy trenches with little progress. In Nazi Germany, the manipulation of truth was weaponized to fuel genocide. More recently, misinformation played a central role in justifying wars, such as the inaccurate claims of weapons of mass destruction leading up to the 2003 Iraq War. The quote warns us not just about military conflict but about the erosion of truth in any polarized or high-stakes environment. In the digital age, with deepfakes, misinformation campaigns, and media manipulation, the battlefield has expanded to our very perception of reality. Aeschylus’ ancient observation remains a modern warning: if truth is the first casualty, the rest of humanity may follow close behind.",
+
+      "Oppenheimer's haunting words, borrowed from Hindu scripture, captured the profound weight of scientific achievement turned devastating. As the leader of the Manhattan Project, he oversaw the creation of the first atomic bomb—an achievement rooted in quantum mechanics, nuclear physics, and global wartime urgency. But the moment the first successful test detonated in the New Mexico desert, the world changed forever. Science had crossed a threshold. For the first time, humans wielded the power to annihilate entire cities in seconds. Hiroshima and Nagasaki demonstrated this horrifying potential, leading to over 200,000 deaths and signaling the beginning of the nuclear age. The quote reflects the moral paradox faced by many scientists: immense curiosity and intellect can create tools of unimaginable destruction. Oppenheimer’s remorse and philosophical reflection became symbolic of the scientific community’s struggle with ethical responsibility. The nuclear arms race that followed—between the U.S., USSR, and later other nations—intensified global tensions and redefined warfare, diplomacy, and international policy. Today, nuclear weapons remain both a deterrent and a shadow over peace. Oppenheimer’s quote is not just a reflection on physics—it’s a warning about the consequences of unleashing knowledge without foresight, humility, or control.",
+
+      "Franklin D. Roosevelt, a leader during both the Great Depression and World War II, also left a strong legacy in environmental conservation. This quote, spoken during the creation of the Civilian Conservation Corps (CCC) in the 1930s, reflects a growing awareness at the time of the critical role forests play—not just in ecosystems, but in national health and resilience. During the Dust Bowl, millions of acres of American farmland became useless due to poor environmental practices and drought. Trees had been cut without replanting, and soil erosion devastated rural economies. Roosevelt’s administration responded by planting over 3 billion trees and restoring natural habitats across the U.S., showing the connection between human survival and environmental stewardship. This quote holds even more relevance today, in the face of climate change and biodiversity loss. Forests absorb carbon dioxide, regulate rainfall, and provide shelter to over 80% of the world’s terrestrial species. When we lose forests, we don’t just lose trees—we endanger entire animal populations and disrupt global systems. Roosevelt’s vision reminds us that conservation is not just about nature—it’s about survival. For both humans and animals, forests are life-support systems we cannot afford to neglect."
+    ];
+
+ 
+  
+      let timeLeft = 60;
+      let timer;
+      let testStarted = false;
+      let startTime;
+      let maxSpeed = 0;
+  
+      ["copy", "paste", "cut"].forEach(evt => {
+        typedText.addEventListener(evt, e => e.preventDefault());
+      });
+  
+      startBtn.addEventListener("click", () => {
+        if (testStarted) return;
+  
+        testStarted = true;
+        typedText.disabled = false;
+        typedText.value = "";
+        typedText.focus();
+  
+        const originalText = sampleTexts[Math.floor(Math.random() * sampleTexts.length)];
+        randomText.innerText = originalText;
+  
+        timeLeft = 60;
+        timerDisplay.textContent = timeLeft;
+        startTime = Date.now();
+  
+        timer = setInterval(() => {
+          timeLeft--;
+          timerDisplay.textContent = timeLeft;
+  
+          if (timeLeft <= 0) {
+            clearInterval(timer);
+            typedText.disabled = true;
+            calculateSpeed();
+          }
+        }, 1000);
+      });
+  
+      function calculateSpeed() {
+        const typed = typedText.value.trim();
+        const wordsTyped = typed.split(/\s+/).filter(word => word.length > 0).length;
+        const timeTakenInMinutes = (Date.now() - startTime) / 60000;
+  
+        const wpm = Math.floor(wordsTyped / timeTakenInMinutes);
+        if (wpm > maxSpeed) {
+          maxSpeed = wpm;
+          maxSpeedDisplay.textContent = maxSpeed;
+        }
+      }
+  
+      restartBtn.addEventListener("click", () => {
+        testStarted = false;
+        timeLeft = 60;
+        timerDisplay.textContent = timeLeft;
+        typedText.disabled = true;
+        typedText.value = "";
+        randomText.innerText = "Loading text...";
+      });
+    </script>
+  </body>
+  
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      body {
+        background: linear-gradient(to right, #1e3a8a, #2563eb, #3b82f6);
+      }
+
+      form {
+        animation: fadeInUp 0.8s ease forwards;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      input:focus {
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+        transition: box-shadow 0.2s ease;
+      }
+
+      ::placeholder {
+        color: #cbd5e1;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="bg-white border-b border-gray-200 dark:bg-gray-900 shadow-md">
+      <div class="max-w-screen-xl flex items-center justify-center mx-auto px-4 py-3">
+          <!-- Logo / Brand Name -->
+          <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+              <span class="self-center text-2xl font-bold text-blue-600 dark:text-white">TejLikho</span>
+          </a>
+
+          <!-- Hamburger Menu for mobile -->
+          <button data-collapse-toggle="navbar" type="button"
+              class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+              aria-controls="navbar" aria-expanded="false">
+              <span class="sr-only">Open menu</span>
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+          </button>
+
+      
+      </div>
+  </nav>
+    
+    <div class="h-screen w-full flex items-center justify-center">
+      <form class="max-w-md w-full bg-white/10 p-8 rounded-lg shadow-lg backdrop-blur-sm text-white" action="/register" method="post">
+        <h2 class="text-3xl font-bold text-center mb-6">Create an Account</h2>
+
+        <div class="relative z-0 w-full mb-5 group">
+          <input
+            type="email"
+            name="email"
+            id="email"
+            class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-400 peer"
+            placeholder=" "
+            required
+          />
+          <label
+            for="email"
+            class="absolute text-sm text-gray-200 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >Email address</label
+          >
+        </div>
+
+        <div class="relative z-0 w-full mb-5 group">
+          <input
+            type="password"
+            name="password"
+            id="password"
+            class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-400 peer"
+            placeholder=" "
+            required
+          />
+          <label
+            for="password"
+            class="absolute text-sm text-gray-200 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >Password</label
+          >
+        </div>
+
+        <div class="grid md:grid-cols-2 md:gap-6">
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-400 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              for="name"
+              class="absolute text-sm text-gray-200 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >Your Name</label
+            >
+          </div>
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              type="text"
+              name="username"
+              id="username"
+              class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-400 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              for="username"
+              class="absolute text-sm text-gray-200 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >Your Username</label
+            >
+          </div>
+        </div>
+
+        <input
+          type="submit"
+          value="Signup"
+          class="w-full bg-blue-600 hover:bg-blue-700 transition-all text-white font-semibold py-2.5 rounded-lg shadow-md mt-4"
+        />
+
+        <p class="mt-4 text-sm text-center text-gray-200">
+          Already have an account?
+          <a href="/login" class="text-blue-300 hover:underline">Login</a>
+        </p>
+      </form>
+    </div>
+  </body>
+</html>

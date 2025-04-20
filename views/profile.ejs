@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TejLikho | Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50 text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-white border-b border-gray-200 dark:bg-gray-900 shadow-md">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 py-3">
+      <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <span class="self-center text-2xl font-bold text-blue-600 dark:text-white">TejLikho</span>
+      </a>
+      <button data-collapse-toggle="navbar" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" aria-controls="navbar" aria-expanded="false">
+        <span class="sr-only">Open menu</span>
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+      <div class="hidden w-full md:flex md:items-center md:justify-between md:w-auto" id="navbar">
+        <ul class="flex flex-col md:flex-row md:space-x-8 mt-4 md:mt-0 text-sm font-medium">
+          <li><a href="/home" class="block py-2 px-3 text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-white">Home</a></li>
+          <li><a href="/profile" class="block py-2 px-3 text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-white">Profile</a></li>
+          <li><a href="/contact" class="block py-2 px-3 text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-white">Contact</a></li>
+        </ul>
+        <form action="/logout" method="get" class="ml-4 mt-4 md:mt-0">
+          <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-all">Logout</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Welcome Section -->
+  <header class="bg-gradient-to-r from-blue-100 via-white to-blue-100 py-12 shadow-inner animate-fadeIn">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h1 class="text-3xl sm:text-4xl font-bold text-blue-700 mb-3">
+        Welcome <%= user.name %> to <span class="text-blue-900">TejLikho!</span>
+      </h1>
+      <p class="text-base sm:text-lg text-gray-600">
+        Sharpen your typing skills, improve your accuracy, and track your progress every day.
+      </p>
+    </div>
+  </header>
+  
+
+  <!-- Start Test Section -->
+  <main class="flex-grow flex items-center justify-center py-16 px-4">
+    <div class="bg-white rounded-xl shadow-lg p-10 max-w-md w-full text-center">
+      <small> You have a good speed,
+        but i think you can improve it.
+      </small>
+      <p>Your Max Speed is <%= data ? data.maxSpeed : 'Not available' %></p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t mt-auto py-4 text-center text-sm text-gray-500">
+    <p>© 2025 TejLikho. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
