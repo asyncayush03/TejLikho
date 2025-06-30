@@ -1,5 +1,4 @@
-![image](https://github.com/user-attachments/assets/a22ce652-bd2b-4f21-aa81-5316f69ca73e)# TejLikho 🧠⌨️
-
+<h1>TejLikho</h1>
 **TejLikho** is a web-based typing test application that calculates a user's typing speed and maintains their performance history. It offers a smooth, responsive UI along with secure login, personalized stats, and real-time speed calculation.
 
 ## 🛠️ Tech Stack
